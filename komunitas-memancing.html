@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fishing Community</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+            overflow-x: hidden;
+        }
+        /* Navbar styles */
+        nav {
+            background-color: #232323;
+            padding: 15px;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+        nav a {
+            color: white;
+            margin: 15px;
+            text-decoration: none;
+        }
+        /* Hero section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: linear-gradient(45deg, #ff0080, #ff8c00);
+            color: white;
+            text-align: center;
+        }
+        /* Community features section */
+        .features {
+            padding: 50px 20px;
+            text-align: center;
+        }
+        /* Members section */
+        .members {
+            padding: 50px 20px;
+            background-color: #232323;
+            text-align: center;
+        }
+        /* Footer styles */
+        footer {
+            background-color: #1a1a1a;
+            padding: 20px;
+            text-align: center;
+        }
+        /* Dark theme for footer */
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#hero">Home</a>
+        <a href="#features">Features</a>
+        <a href="#members">Members</a>
+    </nav>
+    <section class="hero" id="hero">
+        <h1>Welcome to the Fishing Community</h1>
+        <p>Join us for the best fishing experiences!</p>
+    </section>
+    <section class="features" id="features">
+        <h2>Community Features</h2>
+        <p>Learn from experienced fishermen, participate in events, and share your catch!</p>
+    </section>
+    <section class="members" id="members">
+        <h2>Our Members</h2>
+        <p>Meet fellow fishing enthusiasts!</p>
+    </section>
+    <footer>
+        <p>&copy; 2026 Fishing Community</p>
+    </footer>
+    <script>
+        window.addEventListener('scroll', function() {
+            let scroll = window.scrollY;
+            document.body.style.backgroundColor = `rgb(${(scroll % 255)}, ${(scroll * 2 % 255)}, ${(scroll * 3 % 255)})`;
+        });
+    </script>
+</body>
+</html>
