@@ -1,1 +1,1 @@
-# ZeNNtzyy.github.io
+# ZeNNtzyy
