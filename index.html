@@ -1,0 +1,2489 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎣Komunitas Memancing Indonesia</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #111827;
+            --bg-card: #1a2332;
+            --bg-card-hover: #1f2b3d;
+            --accent: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8c00;
+            --accent-red: #ff4757;
+            --text-primary: #e8eaf0;
+            --text-secondary: #8892a4;
+            --text-muted: #4a5568;
+            --border: #2a3444;
+            --gradient-1: linear-gradient(135deg, #00d4ff, #0099cc);
+            --gradient-2: linear-gradient(135deg, #00ff88, #00cc6a);
+            --gradient-3: linear-gradient(135deg, #ff8c00, #ff6600);
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            --shadow-glow: 0 0 30px rgba(0, 212, 255, 0.15);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 14, 23, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 0;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .logo-text span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent);
+            background: rgba(0, 212, 255, 0.08);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 10px;
+        }
+
+        .btn-join {
+            background: var(--gradient-1);
+            color: #000 !important;
+            font-weight: 700 !important;
+            padding: 10px 24px !important;
+            border-radius: 10px !important;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            transition: all 0.3s ease !important;
+        }
+
+        .btn-join:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5) !important;
+            background: var(--gradient-1) !important;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--text-primary);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(0, 255, 136, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(255, 140, 0, 0.05) 0%, transparent 50%);
+        }
+
+        .particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float-particle 15s infinite linear;
+        }
+
+        @keyframes float-particle {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100px) rotate(720deg); opacity: 0; }
+        }
+
+        .hero-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+
+        .hero-left h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .hero-left h1 .highlight {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-left h1 .highlight-green {
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-left p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 35px;
+            max-width: 520px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            background: var(--gradient-1);
+            color: #000;
+            text-decoration: none;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 50px rgba(0, 212, 255, 0.5);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            background: transparent;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid var(--border);
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            background: rgba(0, 212, 255, 0.05);
+            transform: translateY(-3px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .stat-number.green { color: var(--accent-green); }
+        .stat-number.orange { color: var(--accent-orange); }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .hero-right {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            width: 450px;
+            height: 450px;
+        }
+
+        .hero-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 136, 0.05));
+            border: 2px solid rgba(0, 212, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse-glow 4s ease-in-out infinite;
+            position: relative;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 30px rgba(0, 212, 255, 0.1); }
+            50% { box-shadow: 0 0 60px rgba(0, 212, 255, 0.2); }
+        }
+
+        .hero-emoji {
+            font-size: 10rem;
+            animation: bobbing 3s ease-in-out infinite;
+        }
+
+        @keyframes bobbing {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .floating-badge {
+            position: absolute;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--shadow);
+            animation: float 6s ease-in-out infinite;
+            backdrop-filter: blur(10px);
+        }
+
+        .floating-badge:nth-child(2) {
+            top: 20px;
+            right: -30px;
+            animation-delay: -2s;
+        }
+
+        .floating-badge:nth-child(3) {
+            bottom: 60px;
+            left: -40px;
+            animation-delay: -4s;
+        }
+
+        .floating-badge:nth-child(4) {
+            bottom: 20px;
+            right: 0;
+            animation-delay: -1s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .badge-icon {
+            font-size: 1.5rem;
+        }
+
+        .badge-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-sub {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* ===== WAVE DIVIDER ===== */
+        .wave-divider {
+            position: relative;
+            height: 80px;
+            overflow: hidden;
+        }
+
+        .wave-divider svg {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 80px;
+        }
+
+        /* ===== SECTION STYLES ===== */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .section-title span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* ===== FEATURES ===== */
+        .features-section {
+            background: var(--bg-secondary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px 30px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .feature-card:nth-child(2):hover {
+            border-color: rgba(0, 255, 136, 0.3);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.15);
+        }
+
+        .feature-card:nth-child(2)::before {
+            background: var(--gradient-2);
+        }
+
+        .feature-card:nth-child(3):hover {
+            border-color: rgba(255, 140, 0, 0.3);
+            box-shadow: 0 0 30px rgba(255, 140, 0, 0.15);
+        }
+
+        .feature-card:nth-child(3)::before {
+            background: var(--gradient-3);
+        }
+
+        .feature-icon {
+            width: 65px;
+            height: 65px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .feature-card:nth-child(2) .feature-icon {
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .feature-card:nth-child(3) .feature-icon {
+            background: rgba(255, 140, 0, 0.1);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* ===== SPOTS SECTION ===== */
+        .spots-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .spot-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .spot-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-glow);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .spot-image {
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+        }
+
+        .spot-image.ocean {
+            background: linear-gradient(135deg, #0c3547, #1a5276);
+        }
+
+        .spot-image.river {
+            background: linear-gradient(135deg, #1a472a, #2d6a4f);
+        }
+
+        .spot-image.lake {
+            background: linear-gradient(135deg, #2c1654, #4a1a8a);
+        }
+
+        .spot-rating {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .spot-type {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .spot-type.ocean-type {
+            background: rgba(0, 212, 255, 0.2);
+            color: var(--accent);
+        }
+
+        .spot-type.river-type {
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--accent-green);
+        }
+
+        .spot-type.lake-type {
+            background: rgba(255, 140, 0, 0.2);
+            color: var(--accent-orange);
+        }
+
+        .spot-info {
+            padding: 24px;
+        }
+
+        .spot-info h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .spot-location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        .spot-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .spot-tag {
+            padding: 5px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* ===== CATCHES / GALLERY ===== */
+        .catches-section {
+            background: var(--bg-secondary);
+        }
+
+        .catches-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .catch-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .catch-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .catch-card:first-child {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .catch-image {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+        }
+
+        .catch-card:first-child .catch-image {
+            height: 100%;
+            min-height: 300px;
+            font-size: 6rem;
+        }
+
+        .catch-image.bg1 { background: linear-gradient(135deg, #0c2d48, #145374); }
+        .catch-image.bg2 { background: linear-gradient(135deg, #1a3a2a, #2d5a3f); }
+        .catch-image.bg3 { background: linear-gradient(135deg, #2a1a3a, #4a2a6a); }
+        .catch-image.bg4 { background: linear-gradient(135deg, #3a2a1a, #5a3a2a); }
+        .catch-image.bg5 { background: linear-gradient(135deg, #1a2a3a, #2a4a5a); }
+
+        .catch-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        }
+
+        .catch-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .catch-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .catch-username {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .catch-details {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .catch-weight {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(0, 212, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 6px;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-top: 6px;
+        }
+
+        /* ===== LEADERBOARD ===== */
+        .leaderboard-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .leaderboard-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        .leaderboard-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .leader-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            margin-bottom: 8px;
+        }
+
+        .leader-item:hover {
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .leader-rank {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .rank-1 { background: linear-gradient(135deg, #ffd700, #ffaa00); color: #000; }
+        .rank-2 { background: linear-gradient(135deg, #c0c0c0, #a0a0a0); color: #000; }
+        .rank-3 { background: linear-gradient(135deg, #cd7f32, #a0622e); color: #fff; }
+        .rank-default { background: rgba(255, 255, 255, 0.05); color: var(--text-secondary); }
+
+        .leader-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .leader-avatar.av1 { background: linear-gradient(135deg, #00d4ff33, #0099cc33); }
+        .leader-avatar.av2 { background: linear-gradient(135deg, #00ff8833, #00cc6a33); }
+        .leader-avatar.av3 { background: linear-gradient(135deg, #ff8c0033, #ff660033); }
+        .leader-avatar.av4 { background: linear-gradient(135deg, #ff475733, #cc363f33); }
+        .leader-avatar.av5 { background: linear-gradient(135deg, #a855f733, #7c3aed33); }
+
+        .leader-info {
+            flex: 1;
+        }
+
+        .leader-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .leader-detail {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .leader-score {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 0.95rem;
+        }
+
+        .leader-score.green { color: var(--accent-green); }
+
+        /* ===== EVENTS ===== */
+        .events-section {
+            background: var(--bg-secondary);
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .event-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            display: flex;
+            gap: 24px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .event-date {
+            width: 70px;
+            height: 80px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .event-day {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .event-month {
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .event-card:nth-child(2) .event-date {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: rgba(0, 255, 136, 0.2);
+        }
+        .event-card:nth-child(2) .event-day,
+        .event-card:nth-child(2) .event-month { color: var(--accent-green); }
+
+        .event-card:nth-child(3) .event-date {
+            background: rgba(255, 140, 0, 0.1);
+            border-color: rgba(255, 140, 0, 0.2);
+        }
+        .event-card:nth-child(3) .event-day,
+        .event-card:nth-child(3) .event-month { color: var(--accent-orange); }
+
+        .event-card:nth-child(4) .event-date {
+            background: rgba(255, 71, 87, 0.1);
+            border-color: rgba(255, 71, 87, 0.2);
+        }
+        .event-card:nth-child(4) .event-day,
+        .event-card:nth-child(4) .event-month { color: var(--accent-red); }
+
+        .event-info h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .event-info p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .event-meta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .event-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== FORUM PREVIEW ===== */
+        .forum-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .forum-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .forum-item:hover {
+            border-color: rgba(0, 212, 255, 0.3);
+            transform: translateX(5px);
+        }
+
+        .forum-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .forum-content {
+            flex: 1;
+        }
+
+        .forum-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 6px;
+        }
+
+        .forum-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .forum-stats {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .forum-stat {
+            text-align: center;
+        }
+
+        .forum-stat-num {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--accent);
+        }
+
+        .forum-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials-section {
+            background: var(--bg-secondary);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 212, 255, 0.2);
+        }
+
+        .testimonial-quote {
+            font-size: 2.5rem;
+            color: var(--accent);
+            opacity: 0.3;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .testimonial-text {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .testimonial-avatar.t1 { background: linear-gradient(135deg, #00d4ff33, #0099cc33); }
+        .testimonial-avatar.t2 { background: linear-gradient(135deg, #00ff8833, #00cc6a33); }
+        .testimonial-avatar.t3 { background: linear-gradient(135deg, #ff8c0033, #ff660033); }
+
+        .testimonial-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .testimonial-role {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        .stars {
+            color: #ffd700;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-bg {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at center, rgba(0, 212, 255, 0.1), transparent 70%);
+        }
+
+        .cta-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-content h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .cta-content p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-features {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .cta-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .cta-feature-icon {
+            color: var(--accent-green);
+            font-size: 1.2rem;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 80px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin: 16px 0 24px;
+            font-size: 0.95rem;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-link {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-col h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-bottom p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-bottom-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--accent);
+        }
+
+        /* ===== BACK TO TOP ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 14px;
+            color: #000;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.5);
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 480px;
+            width: 90%;
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .modal p {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 14px;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-modal-primary {
+            background: var(--gradient-1);
+            color: #000;
+            border: none;
+        }
+
+        .btn-modal-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-modal-primary:hover {
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-modal-secondary:hover {
+            border-color: var(--accent);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Counter animation */
+        .counting {
+            transition: all 0.1s ease;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-left p { max-width: 100%; margin-left: auto; margin-right: auto; }
+            .hero-buttons { justify-content: center; }
+            .hero-stats { justify-content: center; }
+            .hero-right { order: -1; }
+            .hero-image-wrapper { width: 320px; height: 320px; }
+            .hero-emoji { font-size: 7rem; }
+            .features-grid { grid-template-columns: 1fr; }
+            .spots-grid { grid-template-columns: repeat(2, 1fr); }
+            .catches-grid { grid-template-columns: repeat(2, 1fr); }
+            .catch-card:first-child { grid-column: span 2; }
+            .leaderboard-wrapper { grid-template-columns: 1fr; }
+            .events-grid { grid-template-columns: 1fr; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: var(--bg-secondary);
+                flex-direction: column;
+                padding: 80px 30px 30px;
+                transition: right 0.4s ease;
+                border-left: 1px solid var(--border);
+                gap: 4px;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                width: 100%;
+                padding: 14px 18px;
+            }
+
+            .hero-left h1 { font-size: 2.2rem; }
+            .section-title { font-size: 1.8rem; }
+            .spots-grid { grid-template-columns: 1fr; }
+            .catches-grid { grid-template-columns: 1fr; }
+            .catch-card:first-child { grid-column: span 1; grid-row: span 1; }
+            .cta-content h2 { font-size: 2rem; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .hero-stats { gap: 20px; }
+            .stat-number { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-image-wrapper { width: 250px; height: 250px; }
+            .hero-emoji { font-size: 5rem; }
+            .floating-badge { display: none; }
+            .hero-buttons { flex-direction: column; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">🎣</div>
+                <div class="logo-text">Fish<span>Group</span></div>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active">Beranda</a></li>
+                <li><a href="#features">Fitur</a></li>
+                <li><a href="#spots">Spot</a></li>
+                <li><a href="#gallery">Galeri</a></li>
+                <li><a href="#events">Event</a></li>
+                <li><a href="#forum">Forum</a></li>
+                <li><a href="#" class="btn-join" onclick="openModal()">Gabung Sekarang</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="particles" id="particles"></div>
+        <div class="hero-content">
+            <div class="hero-left">
+                <h1>
+                    Komunitas <span class="highlight">Memancing</span><br>
+                    Kacung <span class="highlight-green">Indonesia</span>
+                </h1>
+                <p>Bergabunglah dengan ribuan pemancing dari seluruh Nusantara. Temukan spot terbaik, bagikan pengalaman, dan raih tantangan memancing bersama kami!</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn-primary" onclick="openModal()">
+                        ⚡ Gabung Gratis
+                    </a>
+                    <a href="#features" class="btn-secondary">
+                        🔍 Pelajari Lebih
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="15000">0</div>
+                        <div class="stat-label">Anggota Aktif</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number green" data-target="850">0</div>
+                        <div class="stat-label">Spot Mancing</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number orange" data-target="320">0</div>
+                        <div class="stat-label">Event Tahunan</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="hero-image-wrapper">
+                    <div class="hero-circle">
+                        <div class="hero-emoji">🐟</div>
+                    </div>
+                    <div class="floating-badge" style="top: 20px; right: -30px;">
+                        <div class="badge-icon">🏆</div>
+                        <div>
+                            <div class="badge-text">Top Angler</div>
+                            <div class="badge-sub">Minggu ini</div>
+                        </div>
+                    </div>
+                    <div class="floating-badge" style="bottom: 60px; left: -40px;">
+                        <div class="badge-icon">📍</div>
+                        <div>
+                            <div class="badge-text">20+ Spot</div>
+                            <div class="badge-sub">Seluruh Indonesia</div>
+                        </div>
+                    </div>
+                    <div class="floating-badge" style="bottom: 10px; right: 20px;">
+                        <div class="badge-icon">🐠</div>
+                        <div>
+                            <div class="badge-text">543,2 kg</div>
+                            <div class="badge-sub">Rekor bulan ini</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section features-section" id="features">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-badge">✨ Kenapa Pilih Kami</div>
+                <h2 class="section-title">Fitur <span>Unggulan</span> Kami</h2>
+                <p class="section-desc">Kami menyediakan berbagai fitur untuk membuat pengalaman memancing kamu lebih seru dan terhubung</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <div class="feature-icon">📍</div>
+                    <h3>Peta Spot Interaktif</h3>
+                    <p>Temukan ratusan spot memancing terbaik di seluruh Indonesia lengkap dengan review, rating, dan tips dari pemancing berpengalaman.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🏆</div>
+                    <h3>Turnamen & Challenge</h3>
+                    <p>Ikuti kompetisi memancing online dan offline dengan hadiah menarik. Buktikan skill memancingmu dan raih posisi puncak leaderboard!</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">💬</div>
+                    <h3>Forum Diskusi</h3>
+                    <p>Diskusikan teknik, gear, umpan, dan berbagi cerita seru dengan komunitas pemancing dari berbagai daerah di Indonesia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPOTS -->
+    <section class="section" id="spots">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-badge">📍 Spot Populer</div>
+                <h2 class="section-title">Spot Mancing <span>Terbaik</span></h2>
+                <p class="section-desc">Jelajahi spot-spot memancing favorit yang direkomendasikan oleh komunitas kami</p>
+            </div>
+            <div class="spots-grid">
+                <div class="spot-card reveal">
+                    <div class="spot-image ocean">
+                        🌊
+                        <div class="spot-rating">⭐ 4.9</div>
+                        <span class="spot-type ocean-type">Laut</span>
+                    </div>
+                    <div class="spot-info">
+                        <h3>Selat Kidol Deep Sea</h3>
+                        <div class="spot-location">📍 Anyer, Banten</div>
+                        <div class="spot-tags">
+                            <span class="spot-tag">🐟 Marlin</span>
+                            <span class="spot-tag">🦈 Tuna</span>
+                            <span class="spot-tag">🎣 Jigging</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="spot-card reveal">
+                    <div class="spot-image river">
+                        🏞️
+                        <div class="spot-rating">⭐ 4.7</div>
+                        <span class="spot-type river-type">Sungai</span>
+                    </div>
+                    <div class="spot-info">
+                        <h3>Sungai HP Safari</h3>
+                        <div class="spot-location">📍 Kutai, Mesuji Timur</div>
+                        <div class="spot-tags">
+                            <span class="spot-tag">🐟 Patin</span>
+                            <span class="spot-tag">🐠 Arwana</span>
+                            <span class="spot-tag">🎣 Casting</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="spot-card reveal">
+                    <div class="spot-image lake">
+                        🏔️
+                        <div class="spot-rating">⭐ 4.8</div>
+                        <span class="spot-type lake-type">Danau</span>
+                    </div>
+                    <div class="spot-info">
+                        <h3>Danau Benil Sunrise Point</h3>
+                        <div class="spot-location">📍 Samosir, Sumatera Utara</div>
+                        <div class="spot-tags">
+                            <span class="spot-tag">🐟 Batak</span>
+                            <span class="spot-tag">🐠 Nila</span>
+                            <span class="spot-tag">🎣 Float</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATCHES GALLERY -->
+    <section class="section catches-section" id="gallery">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-badge">📸 Galeri Tangkapan</div>
+                <h2 class="section-title">Hasil Tangkapan <span>Terbaik</span></h2>
+                <p class="section-desc">Lihat tangkapan-tangkapan membanggakan dari anggota komunitas kami</p>
+            </div>
+            <div class="catches-grid">
+                <div class="catch-card reveal">
+                    <div class="catch-image bg1">
+                        🦈
+                        <div class="catch-overlay">
+                            <div class="catch-user">
+                                <div class="catch-avatar">R</div>
+                                <div>
+                                    <div class="catch-username">Baim</div>
+                                    <div class="catch-details">Laut Benil • 2 hari lalu</div>
+                                </div>
+                            </div>
+                            <div class="catch-weight">⚖️ 24.5 kg - Giant Trevally</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="catch-card reveal">
+                    <div class="catch-image bg2">
+                        🐟
+                        <div class="catch-overlay">
+                            <div class="catch-user">
+                                <div class="catch-avatar" style="background: var(--gradient-2);">A</div>
+                                <div>
+                                    <div class="catch-username">Mana Kacung</div>
+                                    <div class="catch-details">Danau Jalingan • 5 hari lalu</div>
+                                </div>
+                            </div>
+                            <div class="catch-weight">⚖️ 8.2 kg - Ikan Mas</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="catch-card reveal">
+                    <div class="catch-image bg3">
+                        🐠
+                        <div class="catch-overlay">
+                            <div class="catch-user">
+                                <div class="catch-avatar" style="background: var(--gradient-3);">B</div>
+                                <div>
+                                    <div class="catch-username">Rama</div>
+                                    <div class="catch-details">Sungai HP • 1 minggu lalu</div>
+                                </div>
+                            </div>
+                            <div class="catch-weight">⚖️ 12.1 kg - Patin</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="catch-card reveal">
+                    <div class="catch-image bg4">
+                        🦐
+                        <div class="catch-overlay">
+                            <div class="catch-user">
+                                <div class="catch-avatar" style="background: linear-gradient(135deg, #ff4757, #cc363f);">D</div>
+                                <div>
+                                    <div class="catch-username">Harto</div>
+                                    <div class="catch-details">Pantai Mesuji • 3 hari lalu</div>
+                                </div>
+                            </div>
+                            <div class="catch-weight">⚖️ 3.5 kg - Udang Galah</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="catch-card reveal">
+                    <div class="catch-image bg5">
+                        🐡
+                        <div class="catch-overlay">
+                            <div class="catch-user">
+                                <div class="catch-avatar" style="background: linear-gradient(135deg, #a855f7, #7c3aed);">F</div>
+                                <div>
+                                    <div class="catch-username">Yoga kat</div>
+                                    <div class="catch-details">Kepulauan benil2 • 4 hari lalu</div>
+                                </div>
+                            </div>
+                            <div class="catch-weight">⚖️ 15.8 kg - Kakap Merah</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LEADERBOARD -->
+    <section class="section" id="leaderboard">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-badge">🏆 Leaderboard</div>
+                <h2 class="section-title">Pemancing <span>Terhebat</span></h2>
+                <p class="section-desc">Peringkat pemancing terbaik berdasarkan poin dan tangkapan terbesar</p>
+            </div>
+            <div class="leaderboard-wrapper">
+                <div class="leaderboard-card reveal">
+                    <h3>🏆 Top Poin Mingguan</h3>
+                    <div class="leader-item">
+                        <div class="leader-rank rank-1">1</div>
+                        <div class="leader-avatar av1">👨‍🦱</div>
+                        <div class="leader-info">
+                            <div class="leader-name">Hartono</div>
+                            <div class="leader-detail">Jakarta • 47 tangkapan</div>
+                        </div>
+                        <div class="leader-score">2,450 pts</div>
+                    </div>
+                    <div class="leader-item">
+                        <div class="leader-rank rank-2">2</div>
+                        <div class="leader-avatar av2">👨</div>
+                        <div class="leader-info">
+                            <div class="leader-name">Baim</div>
+                            <div class="leader-detail">Bandung • 38 tangkapan</div>
+                        </div>
+                        <div class="leader-score">2,180 pts</div>
+                    </div>
+                    <div class="leader-item">
+                        <div class="leader-rank rank-3">3</div>
+                        <div class="leader-avatar av3">👨‍🦲</div>
+                        <div class="leader-info">
+                            <div class="leader-name">gogon</div>
+                            <div class="leader-detail">Surabaya • 35 tangkapan</div>
+                        </div>
+                        <div class="leader-score">1,920 pts</div>
+                    </div>
+                    <div class="leader-item">
+                        <div class="leader-rank rank-default">4</div>
+                        <div class="leader-avatar av4">🧔</div>
+                        <div class="leader-info">
+                            <div class="leader-name">rama</div>
+                            <div class="leader-detail">Medan • 31 tangkapan</div>
+                        </div>
+                        <div class="leader-score">1,750 pts</div>
+                    </div>
+                    <div class="leader-item">
+                        <div class="leader-rank rank-default">5</div>
+                        <div class="leader-avatar av5">👦</div>
+                        <div class="leader-info">
+                            <div class="leader-name">mana</div>
+                            <div class="leader-detail">Bali • 28 tangkapan</div>
+                        </div>
+                        <div class="leader-score">1,580 pts</div>
+                    </div>
+                </div>
+                <div class="leaderboard-card reveal">
+                    <h3>⚖️ Tangkapan Terbesar</h3>
+                    <div class="leader-item">
+                        <div class="leader-rank rank-1">1</div>
+                        <div class="leader-avatar av1">👨‍🦱</div>
+                        <div class="leader-info">
+                            <div class="leader-name">wira</div>
+                            <div class="leader-detail">Giant Trevally • Selat Sunda</div>
+                        </div>
+                        <div class="leader-score green">24.5 kg</div>
+                    </div>
+                    <div class="leader-item">
+                        <div class="leader-rank rank-2">2</div>
+                        <div class="leader-avatar av5">👦</div>
+                        <div class="leader-info">
+                            <div class="leader-name">nando</div>
+                            <div class="leader-detail">Kakap Merah • Kep. Seribu</div>
+                        </div>
+                        <div class="leader-score green">15.8 kg</div>
+                    </div>
+                    <div class="leader-item">
+                        <div class="leader-rank rank-3">3</div>
+                        <div class="leader-avatar av3">👨‍🦲</div>
+                        <div class="leader-info">
+                            <div class="leader-name">Herman</div>
+                            <div class="leader-detail">Patin • Sungai Mahakam</div>
+                        </div>
+                        <div class="leader-score green">12.1 kg</div>
+                    </div>
+                    <div class="leader-item">
+                        <div class="leader-rank rank-default">4</div>
+                        <div class="leader-avatar av2">👨</div>
+                        <div class="leader-info">
+                            <div class="leader-name">Prayet</div>
+                            <div class="leader-detail">Ikan Mas • Danau Toba</div>
+                        </div>
+                        <div class="leader-score green">8.2 kg</div>
+                    </div>
+                    <div class="leader-item">
+                        <div class="leader-rank rank-default">5</div>
+                        <div class="leader-avatar av4">🧔</div>
+                        <div class="leader-info">
+                            <div class="leader-name">Pono</div>
+                            <div class="leader-detail">Udang Galah • Pantai Carita</div>
+                        </div>
+                        <div class="leader-score green">3.5 kg</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EVENTS -->
+    <section class="section events-section" id="events">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-badge">🎪 Event Mendatang</div>
+                <h2 class="section-title">Event & <span>Turnamen</span></h2>
+                <p class="section-desc">Ikuti event-event seru dan kompetisi memancing yang akan datang</p>
+            </div>
+            <div class="events-grid">
+                <div class="event-card reveal">
+                    <div class="event-date">
+                        <div class="event-day">15</div>
+                        <div class="event-month">Jul</div>
+                    </div>
+                    <div class="event-info">
+                        <h3>FishHunt Championship 2025</h3>
+                        <p>Kompetisi memancing nasional terbesar dengan total hadiah 50 juta rupiah!</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">📍 Selat Sunda</div>
+                            <div class="event-meta-item">👥 256 peserta</div>
+                            <div class="event-meta-item">💰 50 Juta</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card reveal">
+                    <div class="event-date">
+                        <div class="event-day">22</div>
+                        <div class="event-month">Jul</div>
+                    </div>
+                    <div class="event-info">
+                        <h3>Workshop Fly Fishing</h3>
+                        <p>Belajar teknik fly fishing bersama master angler internasional.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">📍 Bandung</div>
+                            <div class="event-meta-item">👥 50 peserta</div>
+                            <div class="event-meta-item">🆓 Gratis</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card reveal">
+                    <div class="event-date">
+                        <div class="event-day">05</div>
+                        <div class="event-month">Ags</div>
+                    </div>
+                    <div class="event-info">
+                        <h3>Night Fishing Challenge</h3>
+                        <p>Tantangan mancing malam hari untuk anggota premium komunitas.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">📍 Kep. Seribu</div>
+                            <div class="event-meta-item">👥 100 peserta</div>
+                            <div class="event-meta-item">💰 25 Juta</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card reveal">
+                    <div class="event-date">
+                        <div class="event-day">18</div>
+                        <div class="event-month">Ags</div>
+                    </div>
+                    <div class="event-info">
+                        <h3>Family Fishing Day 🎉</h3>
+                        <p>Event memancing keluarga, ajak anak dan istri menikmati alam!</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">📍 Danau benil</div>
+                            <div class="event-meta-item">👥 Unlimited</div>
+                            <div class="event-meta-item">🆓 Gratis</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORUM PREVIEW -->
+    <section class="section" id="forum">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-badge">💬 Forum Diskusi</div>
+                <h2 class="section-title">Diskusi <span>Terpopuler</span></h2>
+                <p class="section-desc">Bergabunglah dalam diskusi seru seputar dunia memancing</p>
+            </div>
+            <div class="forum-list">
+                <div class="forum-item reveal">
+                    <div class="forum-avatar">🎣</div>
+                    <div class="forum-content">
+                        <div class="forum-title">Tips Memilih Reel Spinning untuk Pemula</div>
+                        <div class="forum-meta">
+                            <span>👤 Wira</span>
+                            <span>📅 2 jam lalu</span>
+                            <span>📁 Gear & Equipment</span>
+                        </div>
+                    </div>
+                    <div class="forum-stats">
+                        <div class="forum-stat">
+                            <div class="forum-stat-num">128</div>
+                            <div class="forum-stat-label">Balasan</div>
+                        </div>
+                        <div class="forum-stat">
+                            <div class="forum-stat-num">1.2k</div>
+                            <div class="forum-stat-label">Views</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="forum-item reveal">
+                    <div class="forum-avatar" style="background: rgba(0, 255, 136, 0.1);">🐛</div>
+                    <div class="forum-content">
+                        <div class="forum-title">Umpan Essen untuk Mancing di Laut Dalam</div>
+                        <div class="forum-meta">
+                            <span>👤 Mana Kacung</span>
+                            <span>📅 5 jam lalu</span>
+                            <span>📁 Teknik & Umpan</span>
+                        </div>
+                    </div>
+                    <div class="forum-stats">
+                        <div class="forum-stat">
+                            <div class="forum-stat-num">89</div>
+                            <div class="forum-stat-label">Balasan</div>
+                        </div>
+                        <div class="forum-stat">
+                            <div class="forum-stat-num">856</div>
+                            <div class="forum-stat-label">Views</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="forum-item reveal">
+                    <div class="forum-avatar" style="background: rgba(255, 140, 0, 0.1);">🗺️</div>
+                    <div class="forum-content">
+                        <div class="forum-title">Review Spot Mancing Baru di Pantai Selatan Jawa</div>
+                        <div class="forum-meta">
+                            <span>👤 Harto Jadi</span>
+                            <span>📅 1 hari lalu</span>
+                            <span>📁 Spot & Review</span>
+                        </div>
+                    </div>
+                    <div class="forum-stats">
+                        <div class="forum-stat">
+                            <div class="forum-stat-num">204</div>
+                            <div class="forum-stat-label">Balasan</div>
+                        </div>
+                        <div class="forum-stat">
+                            <div class="forum-stat-num">2.4k</div>
+                            <div class="forum-stat-label">Views</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="forum-item reveal">
+                    <div class="forum-avatar" style="background: rgba(255, 71, 87, 0.1);">🌙</div>
+                    <div class="forum-content">
+                        <div class="forum-title">Pengalaman Night Fishing Pertama Kali - Worth It!</div>
+                        <div class="forum-meta">
+                            <span>👤 Baim</span>
+                            <span>📅 2 hari lalu</span>
+                            <span>📁 Cerita & Pengalaman</span>
+                        </div>
+                    </div>
+                    <div class="forum-stats">
+                        <div class="forum-stat">
+                            <div class="forum-stat-num">156</div>
+                            <div class="forum-stat-label">Balasan</div>
+                        </div>
+                        <div class="forum-stat">
+                            <div class="forum-stat-num">1.8k</div>
+                            <div class="forum-stat-label">Views</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section testimonials-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-badge">❤️ Testimoni</div>
+                <h2 class="section-title">Kata <span>Mereka</span></h2>
+                <p class="section-desc">Apa kata anggota komunitas tentang FishHunt</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-quote">"</div>
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">FishHunt benar-benar mengubah hobi memancing saya. Dari yang awalnya mancing sendirian, sekarang punya banyak teman mancing dari berbagai kota!</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar t1">👨‍🦱</div>
+                        <div>
+                            <div class="testimonial-name">Gogon</div>
+                            <div class="testimonial-role">Angler Profesional • Jakarta</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-quote">"</div>
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">Fitur peta spot sangat membantu! Saya menemukan banyak spot tersembunyi yang luar biasa. Komunitas ini sangat ramah dan saling membantu.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar t2">👨</div>
+                        <div>
+                            <div class="testimonial-name">Rama Ferdiansyah</div>
+                            <div class="testimonial-role">Weekend Angler • Bandung</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-quote">"</div>
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">Event dan turnamen yang diadakan selalu seru! Sudah 3 kali ikut championship dan pengalaman yang didapat tidak ternilai harganya.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar t3">👨‍🦲</div>
+                        <div>
+                            <div class="testimonial-name">Baim Setiawan</div>
+                            <div class="testimonial-role">Tournament Angler • Surabaya</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-bg"></div>
+        <div class="container">
+            <div class="cta-content reveal">
+                <h2>Siap Bergabung dengan<br><span style="background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">12+ Pemancing</span>?</h2>
+                <p>Daftar sekarang dan dapatkan akses ke semua fitur premium selama 30 hari gratis. Tanpa kartu kredit!</p>
+                <div class="cta-buttons">
+                    <button class="btn-primary" onclick="openModal()">🎣 Gabung Sekarang - Gratis!</button>
+                    <a href="#features" class="btn-secondary">📖 Pelajari Lebih Lanjut</a>
+                </div>
+                <div class="cta-features">
+                    <div class="cta-feature">
+                        <span class="cta-feature-icon">✅</span>
+                        Gratis Selamanya
+                    </div>
+                    <div class="cta-feature">
+                        <span class="cta-feature-icon">✅</span>
+                        59+ Spot Mancing
+                    </div>
+                    <div class="cta-feature">
+                        <span class="cta-feature-icon">✅</span>
+                        Komunitas Aktif
+                    </div>
+                    <div class="cta-feature">
+                        <span class="cta-feature-icon">✅</span>
+                        Event Rutin
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <div class="logo-icon">🎣</div>
+                        <div class="logo-text">Fish<span>Komunitas</span></div>
+                    </a>
+                    <p>Website ini digunakan untuk bersenang-senang supaya menghibur semua orang. By HermanGANK</p>
+                    <div class="footer-socials">
+                        <a href="#" class="social-link">📘</a>
+                        <a href="#" class="social-link">📸</a>
+                        <a href="#" class="social-link">🐦</a>
+                        <a href="#" class="social-link">▶️</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigasi</h4>
+                    <ul>
+                        <li><a href="#home">Beranda</a></li>
+                        <li><a href="#features">Fitur</a></li>
+                        <li><a href="#spots">Spot Mancing</a></li>
+                        <li><a href="#gallery">Galeri</a></li>
+                        <li><a href="#events">Event</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Komunitas</h4>
+                    <ul>
+                        <li><a href="#forum">Forum Diskusi</a></li>
+                        <li><a href="#leaderboard">Leaderboard</a></li>
+                        <li><a href="#">Blog & Artikel</a></li>
+                        <li><a href="#">Marketplace</a></li>
+                        <li><a href="#">Panduan Pemula</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Bantuan</h4>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Hubungi Kami</a></li>
+                        <li><a href="#">Kebijakan Privasi</a></li>
+                        <li><a href="#">Syarat & Ketentuan</a></li>
+                        <li><a href="#">Laporkan Bug</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026-2027 Fish Community. Made with HermanGANK🕊️ Developer Website.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BACK TO TOP -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">⬆</button>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <h2>🎣 Gabung FishHunt</h2>
+            <p>Daftar gratis dan mulai petualangan memancingmu!</p>
+            <div class="form-group">
+                <label>Nama Lengkap</label>
+                <input type="text" placeholder="Masukkan nama lengkap...">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" placeholder="Masukkan email...">
+            </div>
+            <div class="form-group">
+                <label>Kota</label>
+                <input type="text" placeholder="Kota domisili...">
+            </div>
+            <div class="form-group">
+                <label>Level Memancing</label>
+                <select>
+                    <option value="">Pilih level...</option>
+                    <option value="pemula">🟢 Pemula</option>
+                    <option value="menengah">🟡 Menengah</option>
+                    <option value="ahli">🔴 Ahli / Profesional</option>
+                </select>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-modal-secondary" onclick="closeModal()">Batal</button>
+                <button class="btn-modal-primary" onclick="submitForm()">Daftar Sekarang 🚀</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== PARTICLES =====
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.width = (Math.random() * 4 + 2) + 'px';
+                particle.style.height = particle.style.width;
+                const colors = ['var(--accent)', 'var(--accent-green)', 'var(--accent-orange)'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // ===== NAVBAR SCROLL =====
+        const navbar = document.getElementById('navbar');
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+
+            // Active nav link
+            const sections = document.querySelectorAll('section[id]');
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // ===== HAMBURGER MENU =====
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.getElementById('hamburger');
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+                document.getElementById('hamburger').classList.remove('active');
+            });
+        });
+
+        // ===== SCROLL TO TOP =====
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ===== COUNTER ANIMATION =====
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number[data-target]');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += step;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current).toLocaleString() + '+';
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target.toLocaleString() + '+';
+                    }
+                };
+                updateCounter();
+            });
+        }
+
+        // ===== SCROLL REVEAL =====
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('active');
+                    }, index * 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Counter observer
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.hero-stats');
+        if (statsSection) counterObserver.observe(statsSection);
+
+        // ===== MODAL =====
+        function openModal() {
+            document.getElementById('modalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('modalOverlay').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        function submitForm() {
+            const inputs = document.querySelectorAll('.modal input, .modal select');
+            let allFilled = true;
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    allFilled = false;
+                    input.style.borderColor = 'var(--accent-red)';
+                    setTimeout(() => {
+                        input.style.borderColor = 'var(--border)';
+                    }, 2000);
+                }
+            });
+
+            if (allFilled) {
+                const modal = document.querySelector('.modal');
+                modal.innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 4rem; margin-bottom: 20px;">🎉</div>
+                        <h2 style="margin-bottom: 12px;">Selamat Datang!</h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 24px;">Kamu berhasil bergabung dengan FishHunt Community! Cek email untuk langkah selanjutnya.</p>
+                        <button class="btn-modal-primary" onclick="closeModal()" style="width: 100%; padding: 14px; border-radius: 12px; border: none; cursor: pointer; font-family: 'Poppins'; font-weight: 700; font-size: 1rem; background: var(--gradient-1); color: #000;">Mulai Menjelajah 🎣</button>
+                    </div>
+                `;
+            }
+        }
+
+        // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
